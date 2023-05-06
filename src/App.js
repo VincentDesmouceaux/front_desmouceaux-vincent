@@ -11,6 +11,22 @@ function App() {
   const [popular, setPopular] = useState("");
   const [fromCity, setFromCity] = useState("");
 
+  useEffect(() => {
+    const firstSearch = async () => {
+      try {
+        const reponse = await axios.get(
+          `https://api.comparatrip.eu/cities/autocomplete/?q=${search}`
+        );
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    firstSearch();
+  }, [search]);
+
   return (
     <div>
       <h1>Hello World</h1>

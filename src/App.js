@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 // J'importe Axios qui va permettre de faire des requêtes aux API fournies dans l'énnoncé
 

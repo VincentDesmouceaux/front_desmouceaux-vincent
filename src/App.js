@@ -131,7 +131,7 @@ function App() {
           setFromCity(event.target.value);
         }}
       />
-      <ul>
+      <ul className="third-input">
         {data3.map((from) => (
           <li
             key={from.id}

@@ -87,7 +87,7 @@ function App() {
           setSearch(event.target.value);
         }}
       />
-      <ul>
+      <ul className="firstSearch">
         {data.map((autoComplete) => (
           <li
             key={autoComplete.city_id}
@@ -99,26 +99,28 @@ function App() {
       </ul>
 
       <div className="dropdown">
-        <button className="mostPop" onClick={() => setShow(!show)}>
-          Top 5 cities
-        </button>
-        {show && (
-          <div className="display">
-            <ul>
-              {data2.map((top) => (
-                <li
-                  key={top.id}
-                  onClick={() => {
-                    setPopular(top.local_name);
-                    setShow(false);
-                  }}
-                >
-                  {top.local_name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="list">
+          <button className="mostPop" onClick={() => setShow(!show)}>
+            Top 5 cities
+          </button>
+          {show && (
+            <div className="display">
+              <ul className="uldrop">
+                {data2.map((top) => (
+                  <li
+                    key={top.id}
+                    onClick={() => {
+                      setPopular(top.local_name);
+                      setShow(false);
+                    }}
+                  >
+                    {top.local_name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
       {!show && popular !== "" && (
@@ -126,29 +128,30 @@ function App() {
           {popular}
         </button>
       )}
-
-      <input
-        value={fromCity}
-        type="text"
-        className="search-input"
-        placeholder="Top 5 popular cities from..."
-        onChange={(event) => {
-          setFromCity(event.target.value);
-        }}
-      />
-      <ul className="third-input">
-        {data3.map((from) => (
-          <li
-            key={from.id}
-            onClick={() => {
-              setData3([]);
-              setFromCity(from.unique_name);
-            }}
-          >
-            {from.unique_name}
-          </li>
-        ))}
-      </ul>
+      <div className="lastList">
+        <input
+          value={fromCity}
+          type="text"
+          className="search-input"
+          placeholder="Top 5 popular cities from..."
+          onChange={(event) => {
+            setFromCity(event.target.value);
+          }}
+        />
+        <ul className="third-input">
+          {data3.map((from) => (
+            <li
+              key={from.id}
+              onClick={() => {
+                setData3([]);
+                setFromCity(from.unique_name);
+              }}
+            >
+              {from.unique_name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

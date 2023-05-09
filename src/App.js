@@ -12,7 +12,6 @@ function App() {
   const [search, setSearch] = useState("");
   const [popular, setPopular] = useState("");
   const [show, setShow] = useState(false);
-
   const [fromCity, setFromCity] = useState("");
 
   useEffect(() => {
@@ -32,7 +31,7 @@ function App() {
     } else {
       setData([]);
     }
-  }, [search, data]);
+  }, [search]);
 
   useEffect(() => {
     const secondSearch = async () => {
@@ -127,6 +126,7 @@ function App() {
           {popular}
         </button>
       )}
+
       <input
         value={fromCity}
         type="text"

@@ -24,6 +24,7 @@
   margin: 10px;
   padding: 10px 20px;
   width: 100%;
+  border-radius: 10px;
 }
 
 .searchbar-main .your-city {
@@ -36,10 +37,6 @@
   padding: 10px 20px;
   width: 100%;
   position: relative;
-}
-
-.searchbar-main .your-city:focus + ul {
-  display: none;
 }
 
 .searchbar-main .your-city::placeholder {
@@ -95,6 +92,10 @@
 
 .searchbar-main .dropdown .mostPop:hover {
   color: #000;
+}
+
+.dropdown {
+  border-radius: 10px;
 }
 
 .searchbar-main .dropdown .display {
@@ -163,4 +164,13 @@
 ::placeholder {
   color: #ccc;
   font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .searchbar-main {
+    flex-direction: column;
+    margin: 10px auto;
+    max-width: 600px;
+    padding: 10px;
+  }
 }

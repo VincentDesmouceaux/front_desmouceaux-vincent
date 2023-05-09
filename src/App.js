@@ -2,6 +2,7 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 // J'importe Axios qui va permettre de faire des requêtes aux API fournies dans l'énnoncé
 
 function App() {
@@ -68,6 +69,18 @@ function App() {
     }
   }, [fromCity]);
 
+  useEffect(() => {
+    const handleClick = async () => {
+      setData([]);
+      setShow(false);
+      setFromCity("");
+    };
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   const handleSelectAutoComplete = (autoComplete) => {
     setData([]);
     setSearch(autoComplete.local_name);
@@ -77,84 +90,88 @@ function App() {
   return isLoading ? (
     <p>Loading... </p>
   ) : (
-    <div className="searchbar-main">
-      <input
-        value={search}
-        type="text"
-        className="search-input your-city"
-        placeholder={search ? search : "Your city..."}
-        onChange={(event) => {
-          setSearch(event.target.value);
-        }}
-      />
-      <ul className="firstSearch">
-        {data.map((autoComplete) => (
-          <li
-            key={autoComplete.city_id}
-            onClick={() => handleSelectAutoComplete(autoComplete)}
-          >
-            {autoComplete.local_name}
-          </li>
-        ))}
-      </ul>
-
-      <div className="dropdown">
-        <div className="list">
-          <button className="mostPop" onClick={() => setShow(!show)}>
-            Top 5 cities
-          </button>
-          {show && (
-            <div className="display">
-              <ul className="uldrop">
-                {data2.map((top) => (
-                  <li
-                    key={top.id}
-                    onClick={() => {
-                      setPopular(top.local_name);
-                      setShow(false);
-                    }}
-                  >
-                    {top.local_name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {!show && popular !== "" && (
-        <button className="mostPop" onClick={() => setShow(true)}>
-          {popular}
-        </button>
-      )}
-      <div style={{ position: "relative" }}>
+    <div>
+      <div
+        className="searchbar-main"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="titre">My Search Bar</div>
         <input
-          value={fromCity}
+          value={search}
           type="text"
-          className="search-input"
-          placeholder="Top 5 popular cities from..."
+          className="search-input your-city"
+          placeholder={search ? search : "Your city..."}
           onChange={(event) => {
-            setFromCity(event.target.value);
+            setSearch(event.target.value);
           }}
         />
-        <ul
-          className="third-input"
-          style={{ position: "absolute", top: "128%" }}
-        >
-          {data3.map((from) => (
+        <ul className="firstSearch">
+          {data.map((autoComplete) => (
             <li
-              key={from.id}
-              onClick={() => {
-                setData3([]);
-                setFromCity(from.unique_name);
-              }}
+              key={autoComplete.city_id}
+              onClick={() => handleSelectAutoComplete(autoComplete)}
             >
-              {from.unique_name}
+              {autoComplete.local_name}
             </li>
           ))}
         </ul>
+
+        <div className="dropdown">
+          <div className="list">
+            <button className="mostPop" onClick={() => setShow(!show)}>
+              Top 5 cities
+            </button>
+            {show && (
+              <div className="display">
+                <ul className="uldrop">
+                  {data2.map((top) => (
+                    <li
+                      key={top.id}
+                      onClick={() => {
+                        setPopular(top.local_name);
+                        setShow(false);
+                      }}
+                    >
+                      {top.local_name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {!show && popular !== "" && (
+          <button className="mostPop" onClick={() => setShow(true)}>
+            {popular}
+          </button>
+        )}
+        <div style={{ position: "relative" }}>
+          <input
+            value={fromCity}
+            type="text"
+            className="search-input"
+            placeholder="Top 5 popular cities from..."
+            onChange={(event) => {
+              setFromCity(event.target.value);
+            }}
+          />
+          <ul className="third-input">
+            {data3.map((from) => (
+              <li
+                key={from.id}
+                onClick={() => {
+                  setData3([]);
+                  setFromCity(from.unique_name);
+                }}
+              >
+                {from.unique_name}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+      <img src="/word.png" alt="word" className="world" />
     </div>
   );
 }

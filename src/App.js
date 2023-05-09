@@ -128,7 +128,7 @@ function App() {
           {popular}
         </button>
       )}
-      <div className="lastList">
+      <div style={{ position: "relative" }}>
         <input
           value={fromCity}
           type="text"
@@ -138,7 +138,10 @@ function App() {
             setFromCity(event.target.value);
           }}
         />
-        <ul className="third-input">
+        <ul
+          className="third-input"
+          style={{ position: "absolute", top: "128%" }}
+        >
           {data3.map((from) => (
             <li
               key={from.id}

@@ -29,6 +29,8 @@ function App() {
     };
     if (search) {
       firstSearch();
+    } else {
+      setData([]);
     }
   }, [search, data]);
 
@@ -62,12 +64,15 @@ function App() {
     };
     if (fromCity) {
       thirdSearch();
+    } else {
+      setData3([]);
     }
   }, [fromCity]);
 
   const handleSelectAutoComplete = (autoComplete) => {
     setData([]);
     setSearch(autoComplete.local_name);
+    setShow(false);
   };
 
   return isLoading ? (
@@ -77,7 +82,7 @@ function App() {
       <input
         value={search}
         type="text"
-        className="search-input"
+        className="search-input your-city"
         placeholder={search ? search : "Your city..."}
         onChange={(event) => {
           setSearch(event.target.value);

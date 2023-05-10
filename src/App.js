@@ -1,19 +1,32 @@
 import "./App.css";
 
 import { useEffect, useState } from "react";
+
+// J"importe le useState de React qui va me permettre de faire des changements dynamiques sur ma page et le useEffect qui permet de déclencher des requêtes au changement d'un state
+
 import axios from "axios";
-
 // J'importe Axios qui va permettre de faire des requêtes aux API fournies dans l'énnoncé
-
 function App() {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+  // Création de trois states data correspondant qui vont me permettre de stocker les informations des requêtes aux trois différentes API.
+
   const [isLoading, setIsLoading] = useState(false);
+
   const [search, setSearch] = useState("");
+  // State correspondant à la premiére requête, permettant de faire l'appel à l'API et d'avoir en retour le résulat affiché en recherche autocomplete.
+
   const [popular, setPopular] = useState("");
+  // State correspondant à la deuxième requête : au moment du clique sur l'une des 5 villes les plus populaires, la ville sélectionnée s'affiche .
+
   const [show, setShow] = useState(false);
+  // state permettant d'afficher la liste des 5 villes les plus populaires.
+
   const [fromCity, setFromCity] = useState("");
+  // State correspondant à la dernière requête qui montre à partir d'une ville selectionnée, les 5 villes les plus populaires.
+
+  // Requête pour le premier input
 
   useEffect(() => {
     const firstSearch = async () => {
@@ -34,6 +47,8 @@ function App() {
     }
   }, [search]);
 
+  // Requête pour le boutton TOP 5 CITIES
+
   useEffect(() => {
     const secondSearch = async () => {
       try {
@@ -49,6 +64,8 @@ function App() {
 
     secondSearch();
   }, [popular]);
+
+  // Requête pour le dernier input
 
   useEffect(() => {
     const thirdSearch = async () => {
@@ -68,6 +85,8 @@ function App() {
       setData3([]);
     }
   }, [fromCity]);
+
+  // Fonction permettant de "nettoyer" les states lorsque l'on clique sur la page et de remettre le valeurs à 0, du coup, pas besoin de rafraichir la page pour supprimer les listes de résultats.
 
   useEffect(() => {
     const handleClick = async () => {
@@ -115,36 +134,43 @@ function App() {
             </li>
           ))}
         </ul>
-
-        <div className="dropdown">
-          <div className="list">
-            <button className="mostPop" onClick={() => setShow(!show)}>
-              Top 5 cities
-            </button>
-            {show && (
-              <div className="display">
-                <ul className="uldrop">
-                  {data2.map((top) => (
-                    <li
-                      key={top.id}
-                      onClick={() => {
-                        setPopular(top.local_name);
-                        setShow(false);
-                      }}
-                    >
-                      {top.local_name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-
         {!show && popular !== "" && (
-          <button className="mostPop" onClick={() => setShow(true)}>
+          <button
+            className="mostPop2"
+            onClick={() => {
+              setShow(true);
+              setPopular("");
+            }}
+          >
             {popular}
           </button>
+        )}
+
+        {popular === "" && (
+          <div className="dropdown">
+            <div className="list">
+              <button className="mostPop" onClick={() => setShow(!show)}>
+                Top 5 cities
+              </button>
+              {show && (
+                <div className="display">
+                  <ul className="uldrop">
+                    {data2.map((top) => (
+                      <li
+                        key={top.id}
+                        onClick={() => {
+                          setPopular(top.local_name);
+                          setShow(false);
+                        }}
+                      >
+                        {top.local_name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
         )}
         <div style={{ position: "relative" }}>
           <input

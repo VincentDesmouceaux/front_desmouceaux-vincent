@@ -278,7 +278,7 @@ body {
   .firstSearch {
     border: 1px solid black;
     top: 30%;
-    left: 60px;
+    left: 0;
     border-top: #f2f2f2;
   }
 

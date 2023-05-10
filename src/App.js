@@ -2,15 +2,21 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 
-// J"importe le useState de React qui va me permettre de faire des changements dynamiques sur ma page et le useEffect qui permet de déclencher des requêtes au changement d'un state
+// J"importe le useState de React qui va me permettre de faire des changements dynamiques sur ma page et le useEffect qui permet de déclencher des requêtes au changement d'un state.
 
 import axios from "axios";
-// J'importe Axios qui va permettre de faire des requêtes aux API fournies dans l'énnoncé
+// J'importe Axios qui va permettre de faire des requêtes aux API fournies dans l'énnoncé.
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";
+library.add(faSearch, faStar);
+
 function App() {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
-  // Création de trois states data correspondant qui vont me permettre de stocker les informations des requêtes aux trois différentes API.
+  // Création de trois states data  qui vont me permettre de stocker les informations des requêtes aux trois différentes API.
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,7 +53,7 @@ function App() {
     }
   }, [search]);
 
-  // Requête pour le boutton TOP 5 CITIES
+  // Requête pour le bouton TOP 5 CITIES
 
   useEffect(() => {
     const secondSearch = async () => {
@@ -100,6 +106,8 @@ function App() {
     };
   }, []);
 
+  // Fonction permettant de mettre à jour les states au moment notamment où l'on clique sur l'un des résultats qui apparait dans la liste, cela à pour effet de faire disparaitre la liste de recherche au moment du clic.
+
   const handleSelectAutoComplete = (autoComplete) => {
     setData([]);
     setSearch(autoComplete.local_name);
@@ -110,20 +118,27 @@ function App() {
     <p>Loading... </p>
   ) : (
     <div>
+      {/* module comprenant les 3 différents types de recherche */}
+
       <div
         className="searchbar-main"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="titre">My Search Bar</div>
-        <input
-          value={search}
-          type="text"
-          className="search-input your-city"
-          placeholder={search ? search : "Your city..."}
-          onChange={(event) => {
-            setSearch(event.target.value);
-          }}
-        />
+
+        {/* Première recherche */}
+        <div className="contain">
+          <FontAwesomeIcon icon={faSearch} className="iconSearch" />
+          <input
+            value={search}
+            type="text"
+            className="search-input your-city"
+            placeholder={search ? search : "  Your city..."}
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+          />
+        </div>
         <ul className="firstSearch">
           {data.map((autoComplete) => (
             <li
@@ -134,6 +149,10 @@ function App() {
             </li>
           ))}
         </ul>
+        {/* Deuxième recherche */}
+
+        {/* bouton qui apparait avec la ville selectionnée au moment du clic dans la liste de résultat */}
+
         {!show && popular !== "" && (
           <button
             className="mostPop2"
@@ -145,6 +164,8 @@ function App() {
             {popular}
           </button>
         )}
+
+        {/* bouton qui permet de faire dérouler les 5 villes les plus populaires */}
 
         {popular === "" && (
           <div className="dropdown">
@@ -172,12 +193,16 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* Troisème recherche */}
+
         <div style={{ position: "relative" }}>
+          <FontAwesomeIcon icon={faSearch} className="iconSearch" />
           <input
             value={fromCity}
             type="text"
             className="search-input"
-            placeholder="Top 5 popular cities from..."
+            placeholder="  Top 5 popular cities from..."
             onChange={(event) => {
               setFromCity(event.target.value);
             }}
@@ -197,6 +222,9 @@ function App() {
           </ul>
         </div>
       </div>
+
+      {/* Image */}
+
       <img src="/word.png" alt="word" className="world" />
     </div>
   );

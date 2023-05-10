@@ -1,7 +1,7 @@
 body {
   background: #ccc;
 }
-
+/* module de recherche global */
 .searchbar-main {
   display: flex;
   flex-wrap: wrap;
@@ -32,6 +32,20 @@ body {
   border-radius: 10px;
 }
 
+.contain {
+  position: relative;
+  display: inline-block;
+}
+
+.iconSearch {
+  padding-right: 20px;
+  color: #ccc;
+  position: absolute;
+  top: 33px;
+  left: 15px;
+  transform: translateY(-50%);
+}
+
 .searchbar-main .your-city {
   background-color: white;
   border: 1px solid #ccc;
@@ -41,7 +55,6 @@ body {
   margin: 10px;
   padding: 10px 20px;
   width: 100%;
-  position: relative;
 }
 
 .searchbar-main .your-city::placeholder {
@@ -238,6 +251,8 @@ body {
   max-width: 1000px;
 }
 
+/* Responsive design */
+
 @media (max-width: 768px) {
   .searchbar-main {
     flex-direction: column;
@@ -263,7 +278,7 @@ body {
   .firstSearch {
     border: 1px solid black;
     top: 30%;
-    left: 0;
+    left: 110px;
     border-top: #f2f2f2;
   }
 
@@ -276,7 +291,7 @@ body {
     padding: 0;
     position: absolute;
     top: calc(100%);
-    left: 0;
+    left: 80px;
     width: 100%;
     z-index: 1;
   }
@@ -315,5 +330,23 @@ body {
     transition: all 0.3s ease-in-out;
     margin-right: 100px;
     border-radius: 10px;
+  }
+  .searchbar-main .dropdown .mostPop {
+    background-color: white;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 12px 20px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 60%;
+
+    border-radius: 10px;
+  }
+
+  .searchbar-main .dropdown {
+    border: none;
   }
 }

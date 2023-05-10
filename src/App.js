@@ -133,7 +133,7 @@ function App() {
             value={search}
             type="text"
             className="search-input your-city"
-            placeholder={search ? search : "  Your city..."}
+            placeholder={search ? search : "  Your city . . ."}
             onChange={(event) => {
               setSearch(event.target.value);
             }}
@@ -171,7 +171,7 @@ function App() {
           <div className="dropdown">
             <div className="list">
               <button className="mostPop" onClick={() => setShow(!show)}>
-                Top 5 cities
+                ⭐️ Top 5 cities ⭐️
               </button>
               {show && (
                 <div className="display">
@@ -202,7 +202,7 @@ function App() {
             value={fromCity}
             type="text"
             className="search-input"
-            placeholder="  Top 5 popular cities from..."
+            placeholder="  Top 5 popular cities from . . ."
             onChange={(event) => {
               setFromCity(event.target.value);
             }}
